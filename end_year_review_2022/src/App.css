@@ -1,0 +1,41 @@
+.container{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media (min-aspect-ratio: 9/16){
+  .container{
+    width: calc(100vh * 9 / 16);
+    height: 100vh;
+    margin: auto;
+  }
+}
+
+.pages{
+  box-sizing: border-box;
+}
+
+.page{
+
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  transition: all 0.7s;
+}
+
+.arrow{
+  position: absolute;
+  width: 10%;
+  height: auto;
+  bottom: 30px;
+  left: 45%;
+}
+
+.one{
+  background-color: pink;
+}
+
+.two{
+  background-color: lime;
+}
