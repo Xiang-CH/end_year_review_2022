@@ -13,6 +13,10 @@
   }
 }
 
+p{
+  margin-top: 0;
+}
+
 .pages{
   box-sizing: border-box;
 }
@@ -34,7 +38,9 @@
 }
 
 .one{
-  background-color: pink;
+  background-image: url("cover_page.png");
+  background-size: cover;
+  text-align: center;
 }
 
 .activated{
@@ -65,19 +71,24 @@
   bottom: 5vh;
   text-align: center;
   font-size: 13px;
-  display: inline-block;
+  display: block;
   width: 100%;
-  margin: auto;
+  color:rgb(92, 94, 89)
+}
+
+.privacy a{
   color:rgb(92, 94, 89)
 }
 
 
-.logo{
-  position: absolute; 
+.icon{ 
+  display: block;
   width: 30%;
   height: auto;
-  left: 35%;
-  top: 10vh;
+  margin-left: 35%;
+  margin-top: 0;
+  padding-top: 10vh;
+  padding-bottom: 2vh;
   object-fit: cover;
   border-radius: 50%;
 }
