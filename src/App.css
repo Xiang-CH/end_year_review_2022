@@ -15,6 +15,11 @@
 
 p{
   margin-top: 0;
+  padding: 40px;
+}
+
+.bold{
+  font-weight: bold;
 }
 
 .pages{
@@ -94,7 +99,7 @@ p{
 }
 
 .two{
-  background-color: lime;
+  background-color: rgb(143, 218, 143);
 }
 
 .three{
@@ -162,5 +167,117 @@ h1{
         box-shadow: 0px 0px 0 0;}
   100%   { transform: translate(0, 0px);
          box-shadow: 2px 4px 5px 0; }   
+}
+
+/* styling post */
+
+.post-outer{
+  --bg-2: #fff;
+  --divider:#e8e8e8;
+  margin:20px 15px 20px 15px;
+  /* width:345px; */
+  border-radius:10px;
+  font-size: 15px;
+  background-color: var(--bg-2);
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.16);
+  overflow: hidden;
+}
+.post-outer:active {
+  opacity: 0.7;
+}
+.post-header {
+  display: flex;
+  /* padding:2.5vw 5vw 0vw 5vw; */
+  padding: 10px 20px 0 20px;
+  justify-content: space-between;
+}
+.post-header-title {
+  display: flex;
+  align-self: center;
+}
+.post-serial {
+  font-weight: bold;
+  font-size: 16px;
+  align-self: center;
+}
+.post-avatar-outer {
+  display: inline;
+  margin: 2.5px 10px 0 10px;
+}
+.post-avatar {
+  width: 22.5px;
+  height: 22.5px;
+}
+.post-topic {
+  color: #8C8C8C;
+  align-self: center;
+  padding: 2.5px 7.5px;
+  border-radius: 10px;
+  background: var(--divider);
+  margin-left: 1vw;
+}
+.post-topic-text {
+  font-size: 15px;
+}
+.post-follower-comment-outer {
+  display: flex;
+  position: absolute;
+  right: 40px;
+}
+.post-follower-icon {
+  width: 15px;
+  height: 15px;
+  margin-top: 7.5px;
+}
+.post-follower-num{
+  color: #8C8C8C;
+  font-weight: bold;
+  font-size: 15px;
+  align-self: center;
+}
+.post-divider{
+  height: 1px;
+  margin: 7.5px 10px 10px 10px;
+  background-color: var(--divider);
+}
+.post-content {
+  text-align:left;
+  padding: 5px 20px 15px 20px;
+  white-space: pre-wrap;
+  display: flex;
+  justify-content: space-between;
+}
+.post-content-outer {
+  display: flex;
+}
+.post-content-text {
+  word-break: break-word;
+  width: 100%;
+}
+.post-loadmore {
+  font-size: 11px;
+  color: #8C8C8C;
+  margin-top: 15px;
+  float: right
+}
+.post-image-outer {
+  width: 18%;
+  height: 100px;
+  position: relative;
+  align-self: center;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 5px;
+}
+.post-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
 
