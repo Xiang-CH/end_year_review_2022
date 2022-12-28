@@ -13,17 +13,49 @@
   }
 }
 
+@media (min-aspect-ratio: 9/17){
+  #lineChart{
+    margin: 5vw 7vw 5vw 7vw !important;
+  }
+}
+
 p{
   margin-top: 0;
-  padding: 40px;
+  padding: 2vh 30px 2vh 30px;
+}
+
+p.sub45{
+  padding: 1vh 30px 1vh 30px;
+}
+
+p.smallBottomPadding{
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.header{
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  font-size: 13px;
+  font-weight: 45;
+}
+
+.footer{
+  position: absolute;
+  left: 30px;
+  bottom: 20px;
+  font-size: 13px;
+  font-weight: 45;
 }
 
 .bold{
-  font-weight: bold;
+  font-weight: 105;
 }
 
 .pages{
   box-sizing: border-box;
+  font-size: 2.8vh;
 }
 
 .page{
@@ -43,14 +75,14 @@ p{
 }
 
 .one{
-  background-image: url("cover_page.png");
+  background-image: url("images/cover_page.png");
   background-size: cover;
   text-align: center;
 }
 
 .activated{
-  background-color: rgb(252, 158, 25) !important;
-  animation: button_floating 2s ease-in-out infinite;
+  color: #000000 !important;
+  /* animation: button_floating 2s ease-in-out infinite; */
 }
 
 .downloadBtn{
@@ -58,24 +90,28 @@ p{
 }
 
 .btn{
+  font-size: 1.2em !important;
   position: absolute; 
   font-size: 25px;
   border: none;
   height: 60px;
   width: 60%;
   left: 20%;
-  bottom: 10vh;
-  background-color: rgb(119, 119, 119);
+  bottom: 8.3vh;
+  color: rgba(216,216,216,0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   text-align: center;
-  box-shadow: 2px 4px 5px 0;
-  border-radius: 20px;
+  /* box-shadow: 2px 4px 5px 0; */
+  border-radius: 15px;
+  font-family: 'PuHui';
+  font-weight: 115;
 }
 
 .privacy{
   position: absolute;
   bottom: 5vh;
   text-align: center;
-  font-size: 13px;
+  font-size: 1.5vh;
   display: block;
   width: 100%;
   color:rgb(92, 94, 89)
@@ -99,7 +135,27 @@ p{
 }
 
 .two{
-  background-color: rgb(143, 218, 143);
+  /* position: relative; */
+  font-weight: 35;
+  background-image: url("images/page_two_bg.png");
+  background-size: cover;
+  color: #ffffff;
+}
+
+.floating2{
+  width: 40%;
+  height: auto;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  transition: all 1s;
+}
+
+#lineChart {
+  padding: 2px;
+  margin: 5vw;
+  background-color:rgba(216,216,216);
+  border-radius: 15px;
 }
 
 .three{
@@ -127,9 +183,6 @@ p{
 
 .newly-added {
   animation: flyin 1.2s ease forwards;
-  opacity: 0;
-  transform: scale(2);
-  filter: blur(4px);
 }
 
 .fadeOut {
@@ -148,11 +201,8 @@ h1{
 }
 
 @keyframes flyin {
-   to { 
-     filter: blur(0);
-     transform: scale(1);
-     opacity: 1;
-   }
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
 
 @keyframes fadeOut {
@@ -174,7 +224,9 @@ h1{
 .post-outer{
   --bg-2: #fff;
   --divider:#e8e8e8;
-  margin:20px 15px 20px 15px;
+  color: #000000;
+  font-weight: normal;
+  margin: 4vh 20px 20px 20px;
   /* width:345px; */
   border-radius:10px;
   font-size: 15px;
