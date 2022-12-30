@@ -21,6 +21,13 @@
 
 @font-face {
   font-family: 'PuHui';
+  src: local('PuHui'),
+  url('./fonts/AlibabaPuHuiTi-2-85-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'PuHui';
   src: local('PuHui'), 
         url('./fonts/AlibabaPuHuiTi-2-105-Heavy.ttf') format('truetype');
   font-weight: 105;
