@@ -46,6 +46,7 @@ class PageOne extends React.Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.onCheck = this.onCheck.bind(this);
+    this.popup = this.popup.bind(this);
   }
 
   handleClick(e) {
@@ -65,6 +66,11 @@ class PageOne extends React.Component {
     }
   }
 
+  popup(e) {
+    e.preventDefault();
+    $('#agreement').css('display', 'block');
+  }
+
   render() {
     return (
       <div className="page one">
@@ -77,9 +83,34 @@ class PageOne extends React.Component {
         <div className="privacy">
           <input id="permit" type="checkbox" onClick={this.onCheck}></input>
           <span>允许HKUPootal访问浏览数据</span>
-          <a href='privacyAgreement.html'>《信息授权协议》</a>
+          <a href="#" onClick={this.popup}>《信息授权协议》</a>
         </div>
-      </div>
+
+
+      <div id='agreement'>
+      <span onClick={()=>{$('#agreement').css('display', 'none')}}>X</span>
+        <h1 style={{marginTop: 50, marginBottom: 20, fontSize:25}}>
+            信息授权协议
+        </h1>
+
+        <ol style={{marginLeft: 10, marginRight: '30px'}}>
+            <li style={{marginBottom: 20}}>
+                为了生成您的噗噗年度报告,我们将根据您的授权,查询您2022年1月1日至2022年12月31日期间在HKU噗噗平台账号的使用时间、树洞发帖数据、互动数据、HKU ONE查询数据等,并据此进行汇总统计分析,以用于本活动页面向您进行信息展示。
+            </li>
+            <li style={{marginBottom: 20}}>
+                您的噗噗年度报告为算法自动生成结果,可能与实际有偏差,HKUPootal无法保证相关数据的绝对准确性和有效性。
+            </li>
+            <li style={{marginBottom: 20}}>
+                活动页面包含您的个人信息,当您选择向其他人转发活动页面的截图,其他人会看到上述信息,请谨慎选择。
+            </li>
+            <li style={{marginBottom: 20}}>
+                除上述声明目的外,HKUPootal不会对本次查询的信息作其他处理。
+            </li>
+        </ol>
+       </div>
+
+
+      </div>      
     );
   }
 }
