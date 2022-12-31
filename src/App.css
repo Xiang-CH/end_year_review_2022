@@ -5,7 +5,7 @@
   margin:0;
 }
 
-@media (min-aspect-ratio: 9/16){
+@media (min-aspect-ratio: 9/16.5){
   .container{
     width: calc(100vh * 9 / 16);
     height: 100vh;
@@ -16,6 +16,10 @@
 @media (min-aspect-ratio: 9/17){
   #lineChart{
     margin: 5vw 7vw 5vw 7vw !important;
+  }
+
+  .card .post-outer{
+    margin: 0 30px 0 0 !important;
   }
 }
 
@@ -80,8 +84,7 @@ p.smallBottomPadding{
 }
 
 .card{
-  /* background-color: rgba(242, 242, 242, 0.3); */
-  /* border-radius: 15px; */
+
   position: relative;
   width: 83.5vw;
   height: 29vh;
@@ -155,6 +158,10 @@ p.smallBottomPadding{
   color:rgb(92, 94, 89)
 }
 
+#permit{
+  transform : scale(0.7);
+}
+
 .privacy a{
   color:rgb(92, 94, 89)
 }
@@ -190,7 +197,7 @@ p.smallBottomPadding{
 }
 
 #lineChart {
-  padding: 2px;
+  padding: 2px 2px 0px 2px;
   margin: 5vw;
   background-color:rgba(216,216,216);
   border-radius: 15px;
@@ -230,6 +237,50 @@ p.smallBottomPadding{
   transition: all 1s;
 }
 
+#keywords{
+  position: relative;
+  height: 35vh;
+  margin: 0;
+  padding: 0vh 40px 1vh 40px;
+
+}
+
+#word1{
+  font-weight: 105;
+  position: absolute;
+  font-size: 7vh;
+  top: 30%;
+  left: 11%;
+}
+
+#word2{
+  font-weight: bold;
+  position: absolute;
+  font-size: 5vh;
+  top: 7%;
+  right: 35%;
+}
+
+#word3{
+  position: absolute;
+  font-size: 4vh;
+  top: 38%;
+  right: 10%;
+}
+
+#word4{
+  position: absolute;
+  font-size: 3.2vh;
+  top: 65%;
+  left: 27%;
+}
+#word5{
+  font-weight: 45;
+  position: absolute;
+  font-size: 2.9vh;
+  top: 75%;
+  right: 30%;
+}
 
 .five{
   background-color: rgb(214, 243, 148);
@@ -292,9 +343,8 @@ h1{
   color: #000000;
   font-weight: normal;
   margin: 4vh 30px 20px 30px;
-  /* width:345px; */
   border-radius:10px;
-  font-size: 15px;
+  font-size: 2vh;
   background-color: var(--bg-2);
   box-shadow: 0px 0px 10px rgba(0,0,0,0.16);
   overflow: hidden;
@@ -315,7 +365,7 @@ h1{
 }
 .post-serial {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 2.5vh;
   align-self: center;
 }
 .post-avatar-outer {
@@ -332,10 +382,10 @@ h1{
   padding: 2.5px 7.5px;
   border-radius: 10px;
   background: var(--divider);
-  margin-left: 1vw;
+  margin-left: 0.1em;
 }
 .post-topic-text {
-  font-size: 15px;
+  font-size: 2vh;
 }
 .post-follower-comment-outer {
   display: flex;
@@ -343,14 +393,14 @@ h1{
   right: 1.5em;
 }
 .post-follower-icon {
-  width: 15px;
-  height: 15px;
-  margin-top: 7.5px;
+  width: 2vh;
+  height: 2vh;
+  margin-top: 0.5em;
 }
 .post-follower-num{
   color: #8C8C8C;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 2vh;
   align-self: center;
 }
 .post-divider{

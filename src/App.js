@@ -76,7 +76,7 @@ class PageOne extends React.Component {
           点击开启年度报告</button>
         <div className="privacy">
           <input id="permit" type="checkbox" onClick={this.onCheck}></input>
-          <span>允许薄扶林噗噗访问浏览数据</span>
+          <span>允许HKUPootal访问浏览数据</span>
           <a href='privacyAgreement.html'>《信息授权协议》</a>
         </div>
       </div>
@@ -138,9 +138,17 @@ function SubPageThree(props) {
   const options = {
     responsive: true,
     backgroundColor: '#D8D8D8',
+    elements:{
+      point:{
+        radius: 0,
+      }
+    },
+    legend: {
+      display: false
+    },
     plugins: {
       legend: {
-        position: 'top',
+        display: false
       },
       title: {
         display: false,
@@ -150,26 +158,16 @@ function SubPageThree(props) {
       }
     },
     layout: {
-      padding: 0,
+      padding:{
+        bottom: 7,
+      }
     },
     scales: {
-
       y: {
         display: false
       }
     },
     aspectRatio: 1.2,
-    plugins:{
-      id: 'customCanvasBackgroundColor',
-      beforeDraw: (chart, args, options) => {
-        const {ctx} = chart;
-        ctx.save();
-        ctx.globalCompositeOperation = 'destination-over';
-        ctx.fillStyle = options.color || '#99ffff';
-        ctx.fillRect(0, 0, chart.width, chart.height);
-        ctx.restore();
-      }
-    }
   };
   const label = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
   const data = {
@@ -191,11 +189,11 @@ function SubPageThree(props) {
   }
   return (
     <div id="mainContent" className="newly-added">
-      <p style={{paddingTop: '11vh', paddingBottom: '4vh'}}>
+      <p style={{paddingTop: '11vh', paddingBottom: '1vh'}}>
         在一天的光景里 <br />
         你最常在 <span className="bold">{props.mostCommonPeriod}</span> 光顾噗噗 <br />
       </p>
-      
+      <p style={{paddingTop: '1vh', paddingBottom: '1vh'}}>你和所有用户的时间分布</p>
       <div id="lineChart">
         <Line
           id="lineChart"
@@ -467,7 +465,7 @@ class PageTwo extends React.Component {
         <img className='arrow' src={upArrow} draggable={false} />
         <img className='floating2' src={floating2} draggable={false}/>
         <span className='header'> @HKUPootal</span>
-        <span className='footer'> HKU噗噗年终总结</span>
+        <span className='footer'> HKU噗噗2022年度报告</span>
       </div>
     )
   }
@@ -657,7 +655,7 @@ class PageThree extends React.Component {
           $("#mainContent2").removeClass('newly-added');
           $("#mainContent2").addClass('fadeOut');
 
-        const displayPage3 = this.props.data.user_most_view.post_id && this.props.data.user_most_comment.post_id && this.props.data.user_most_follow.post_id;
+        const displayPage3 = this.props.data.user_most_view.post_id || this.props.data.user_most_comment.post_id || this.props.data.user_most_follow.post_id;
         if(this.state.inPageNo == 2 && !displayPage3){
           this.props.changePage(-100);
         }else{
@@ -732,7 +730,7 @@ class PageThree extends React.Component {
         <img className='arrow' src={upArrow} draggable={false} />
         <img className='floating3' src={floating3} draggable={false}/>
         <span className='header'> @HKUPootal</span>
-        <span className='footer'> HKU噗噗年终总结</span>
+        <span className='footer'> HKU噗噗2022年度报告</span>
       </div>
     )
   }
@@ -791,15 +789,17 @@ function SubPageEleven(props) {
 
   return(
     <div id="mainContent3" className="newly-added">
-      <p style={{textAlign: 'center',padding: '8vh 25px 3vh 25px', fontSize:'2.4vh'}}>2022年<br/>
+      <p style={{textAlign: 'center',padding: '9vh 25px 1vh 25px', fontSize:'2.4vh', fontWeight:65}}>2022年<br/>
       你在 HKU ONE 搜索频次最高的{numChar[wordCount-1]}项词条是</p>
-      <p style={{textAlign: 'center', padding: '1vh 40px 1vh 40px'}}>
-      <span style={{fontSize: '5vh', fontWeight: 'bold'}}>&emsp;&nbsp;{list[1]}</span><br/>
-      <span style={{fontSize: '7vh', fontWeight: 105}}>{list[0]}</span> &emsp;&emsp;&emsp;&emsp;&emsp;
-      <span style={{fontSize: '4vh'}}>{list[2]}</span><br/><br/>
-      <span style={{fontSize: '2.9vh'}}>{list[3]}</span> &emsp;&emsp;&emsp;&nbsp;<br/>
-      &emsp;&emsp;&emsp;&emsp; <span style={{fontWeight: 45}}>{list[4]}</span>
-      </p>
+
+      <div id='keywords'>
+        <span id="word2">{list[1]}</span>
+        <span id="word1">{list[0]}</span>
+        <span id="word3">{list[2]}</span>
+        <span id="word4">{list[3]}</span>
+        <span id="word5">{list[4]}</span>
+      </div>
+
       <p style={{textAlign: 'center', fontSize: '2.2vh', marginBottom: 0}}>
         它们对你来说意味着什么 <br/>
         又串起了怎样苦甜参半的回忆呢？
@@ -815,27 +815,20 @@ function SubPageEleven(props) {
 class PageFour extends React.Component {
   constructor(props) {
     super(props);
+    var total_page = 0;
+    if (this.props.data.user_fire.post_id) total_page+=1;
+    if (this.props.data.user_no_view_follow_post.post_id) total_page+=1;
+    if (this.props.data.user_search_keyword_list.length > 0 ) total_page+=1;
     this.state = {
-      inPageNo: 1
+      inPageNo: 1,
+      touchStart: 0,
+      touchEnd: 0,
+      totalPages: total_page,
+      noPageOne: (!this.props.data.user_fire.post_id)
     }
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
-  }
-
-  componentDidUpdate(){
-    if(this.props.data.user_serial != null)
-      {if (!this.props.data.user_fire.post_id){
-        if (!this.props.data.user_no_view_follow_post.post_id){
-          if (this.props.data.user_search_keyword_list.length > 0 ){
-            this.setState({inPageNo: 3});
-          }else{
-            this.props.changePage(-100);
-          }
-        } else{
-          this.setState({inPageNo: 2});
-        }
-      }}
   }
 
   handleTouchStart(e) {
@@ -849,14 +842,15 @@ class PageFour extends React.Component {
   handleTouchEnd(e) {
 
     if (this.state.touchStart - this.state.touchEnd > 150) {
-      if (this.state.inPageNo < 3) {
+      if (this.state.inPageNo < this.state.totalPages) {
 
           $("#mainContent3").removeClass('newly-added');
           $("#mainContent3").addClass('fadeOut');
 
           const sticker = document.querySelector(".floating4");
           sticker.style.animation = 'floating 1s ease-in';
-        if (this.state.inPageNo == 2){
+
+        if (this.state.inPageNo == 2 || (this.state.inPageNo == 1 && !this.props.data.user_fire.post_id)){
           setTimeout(() => {sticker.style.bottom = '-160px'}, 1000) 
         }
 
@@ -867,6 +861,7 @@ class PageFour extends React.Component {
             }
           });
         }, 1200);
+
         setTimeout(() => {sticker.style.animation = '';}, 1000)
 
       } else {
@@ -876,15 +871,25 @@ class PageFour extends React.Component {
       if (this.state.inPageNo > 1) {
         const sticker = document.querySelector(".floating4");
         sticker.style.animation = 'floating 1s ease-in-out alternate';
+
         if (this.state.inPageNo == 3){
-          setTimeout(() => {sticker.style.bottom = '55px'}, 100) 
+          setTimeout(() => {sticker.style.bottom = '55px'}, 100)
+          this.setState(prevState => {
+            return {
+              inPageNo: prevState.inPageNo - 1
+            }
+          }) ;
+
+        } else{
+          this.setState(prevState => {
+            return {
+              inPageNo: 1
+            }
+          });
         }
 
-        this.setState(prevState => {
-          return {
-            inPageNo: prevState.inPageNo - 1
-          }
-        });
+
+      
         setTimeout(() => {sticker.style.animation = '';}, 1000)
       } else {
         this.props.changePage(100);
@@ -894,11 +899,19 @@ class PageFour extends React.Component {
 
   render() {
 
-    if (this.state.inPageNo == 1 && this.props.data.user_serial != null) {
-      var html = <SubPageNine data={this.props.data.user_fire}/>;
-    } else if (this.state.inPageNo == 2) {
-      var html = <SubPageTen data={this.props.data.user_no_view_follow_post}/>
-    } else if (this.props.data.user_serial != null){
+    if (this.state.inPageNo == 1) {
+      if (this.props.data.user_fire.post_id)
+        var html = <SubPageNine data={this.props.data.user_fire}/>;
+      else if (this.props.data.user_no_view_follow_post.post_id)
+        var html = <SubPageTen data={this.props.data.user_no_view_follow_post}/>
+      else
+        var html = <SubPageEleven wordList={this.props.data.user_search_keyword_list}/>
+    } else if (this.state.inPageNo == 2 ) {
+      if (this.props.data.user_no_view_follow_post.post_id && !this.state.noPageOne)
+        var html = <SubPageTen data={this.props.data.user_no_view_follow_post}/>
+      else
+        var html = <SubPageEleven wordList={this.props.data.user_search_keyword_list}/>
+    } else{
       var html = <SubPageEleven wordList={this.props.data.user_search_keyword_list}/>
     }
 
@@ -913,7 +926,7 @@ class PageFour extends React.Component {
         <img className='arrow' src={upArrow} draggable={false} />
         <img className='floating4' src={floating4} draggable={false}/>
         <span className='header'> @HKUPootal</span>
-        <span className='footer'> HKU噗噗年终总结</span>
+        <span className='footer'> HKU噗噗2022年度报告</span>
       </div>
     )
   }
@@ -1037,13 +1050,13 @@ class Pages extends React.Component {
 
   getUserData() {
     const usrToken = 'cxiang'
-    // $.getJSON(`https://api.pupu.hkupootal.com/v3/report2022/get.php?user_itsc=${usrToken}`, function (result) {
-    //   if (result.code === 200) {
-    //     console.log(result.report_data);
-    //     this.setState({ data: result.report_data, dataLoaded: true  });
-    //   }
-    // }.bind(this))
-    this.setState({ data: testdata, dataLoaded: true });
+    $.getJSON(`https://api.pupu.hkupootal.com/v3/report2022/get.php?user_itsc=${usrToken}`, function (result) {
+      if (result.code === 200) {
+        console.log(result.report_data);
+        this.setState({ data: result.report_data, dataLoaded: true  });
+      }
+    }.bind(this))
+    // this.setState({ data: testdata, dataLoaded: true });
   }
 
   changePage(translation) {
@@ -1062,13 +1075,17 @@ class Pages extends React.Component {
 
   render() {
     var posterPage = <></>
-    if(this.state.dataLoaded) posterPage =  <PageFive 
-        changePage={this.changePage} 
-        username={this.state.data.user_serial} 
-        avatar={this.state.data.user_avatar} 
-        title1={this.state.data.user_title_1}
-        title2={this.state.data.user_title_2}
-      />;
+    var pageFour = <></>
+    if(this.state.dataLoaded) {
+        posterPage =  <PageFive 
+            changePage={this.changePage} 
+            username={this.state.data.user_serial} 
+            avatar={this.state.data.user_avatar} 
+            title1={this.state.data.user_title_1}
+            title2={this.state.data.user_title_2}
+          />;
+        pageFour = <PageFour changePage={this.changePage} data={this.state.data}/>;
+    }
     return (
       <div
         className="pages"
@@ -1079,7 +1096,7 @@ class Pages extends React.Component {
         <PageOne onClick={this.changePage} getData={this.getUserData}/>
         <PageTwo changePage={this.changePage} data={this.state.data}/>
         <PageThree changePage={this.changePage} data={this.state.data}/>
-        <PageFour changePage={this.changePage} data={this.state.data}/>
+        {pageFour}
         {posterPage}
       </div>
     )
