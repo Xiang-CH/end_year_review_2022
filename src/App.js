@@ -505,7 +505,7 @@ class PageTwo extends React.Component {
 function SubPageSix(props) {
   if(props.isTop10 || props.userViewPercentile>85) var slogan = "全pootal人的心事都要被你知道啦";
   else if(props.userViewPercentile>60) var slogan = "看那么多的树洞 真是辛苦你了\n明年再接再厉";
-  else var slogan = " 树洞里有超多好玩的东西 要记得常来喔";
+  else var slogan = " 树洞里有超多好玩的东西\n 要记得常来喔";
 
   return(
     <div id="mainContent2" className="newly-added">
