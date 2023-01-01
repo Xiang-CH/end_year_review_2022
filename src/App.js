@@ -1,5 +1,5 @@
-import logo from './images/pootal-logo.svg';
 import upArrow from './images/up-arrows.png';
+import upArrowWhite from './images/up-arrows-white.png';
 import floating2 from './images/page_two_floating.png';
 import floating3 from './images/page_three_floating.png';
 import floating4 from './images/page_four_floating.png';
@@ -52,9 +52,11 @@ class PageOne extends React.Component {
   handleClick(e) {
     if (e.target.classList.contains("activated")) {
       this.props.getData();
-      setTimeout(() => this.props.onClick(-100), 500);
-      setTimeout(() => {const sticker = document.querySelector(".floating2");
-      sticker.style.top="80px"}, 700);
+    }else{
+      $('#notAgreed').css('display', 'block');
+      setTimeout(() => {
+        $('#notAgreed').css('display', 'none');
+      }, 1500);
     }
   }
 
@@ -86,11 +88,13 @@ class PageOne extends React.Component {
           <a href="#" onClick={this.popup}>《信息授权协议》</a>
         </div>
 
+      <div id="notAgreed" className="prompt"><p style={{marginTop: '0.6em'}}>请先勾选信息授权协议</p></div>
+      <div id="fetchFailed" className="prompt"><p style={{marginTop: '0.6em'}}>信息获取失败，请重试</p></div>
 
       <div id='agreement'>
       <span onClick={()=>{$('#agreement').css('display', 'none')}}>X</span>
         <h1 style={{marginTop: 50, marginBottom: 20, fontSize:25}}>
-            信息授权协议
+            <p>信息授权协议</p>
         </h1>
 
         <ol style={{marginLeft: 10, marginRight: '30px'}}>
@@ -125,7 +129,7 @@ function SubPageOne(props) {
       今天是我们相识的第 <span className="bold">{props.joinTillNow}</span> 天</p> : <></>}
       <p>不知不觉 噗噗已经陪你 <br/>
         走到了2022年的尽头 <br/>
-        <span className='bold'>出发去看看</span>这一年 <br/>
+        <span className='bold'>出发去看看</span> 这一年 <br/>
         你在噗噗留下的印迹吧</p>
     </div>
   )
@@ -134,8 +138,8 @@ function SubPageOne(props) {
 
 function SubPageTwo(props) {
   if (props.percentile > 98) var slogen = "噗噗特别特别荣幸\n你愿意抽出这么多时间\n来陪伴我长大";
-  else if (props.percentile > 75) var slogen = "噗噗一定是一个\n你特别特别珍爱的\n精神老家吧";
-  else if (props.percentile > 50) var slogen = "希望这一年你在噗噗\n有笑有泪有收获\n也有成长";
+  else if (props.percentile > 90) var slogen = "噗噗一定是一个\n你特别特别珍爱的\n精神老家吧";
+  else if (props.percentile > 70) var slogen = "希望这一年你在噗噗\n有笑有泪有收获\n也有成长";
   else var slogen = "噗噗知道自己还不够好\n但是希望下一年\n你能多陪陪人家喔";
 
   return (
@@ -150,7 +154,7 @@ function SubPageTwo(props) {
         折算下来<br />
         平均每天在噗噗流连 <span className="bold">{Math.round(props.minutesUsedCounter / props.daysUsedCounter)} 分钟</span><br />
         {props.inTop10 ?
-          <>在 {totalUserCount} 名噗噗用户中排名<br />第 <span className="bold">{props.rank}</span></>
+          <>在 <span className='bold'>{totalUserCount}</span> 名噗噗用户中排名<br />第 <span className="bold">{props.rank}</span></>
           : <>击败了 <span className="bold">{props.percentile}%</span> 的噗噗用户</>}
       </p>
       
@@ -237,12 +241,13 @@ function SubPageThree(props) {
 }
 
 class Post extends React.Component {
-  constructor(props) {
-    super(props);
-    this.miniProgramRedirect = this.miniProgramRedirect.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.miniProgramRedirect = this.miniProgramRedirect.bind(this);
+  // }
 
   miniProgramRedirect(post_id) {
+    console.log('点击跳转')
     wx.miniProgram.navigateTo({
       url: '/pages/detail/detail?post_id=' + post_id
     })
@@ -288,7 +293,8 @@ class Post extends React.Component {
     
 
     return (
-      <div className="post-outer" onClick={this.miniProgramRedirect(this.props.data.post_id)} style={aStyle}>
+      <>
+      <div className="post-outer" style={aStyle}>
         <div className="post-header">
 
           <div className="post-header-title">
@@ -326,6 +332,7 @@ class Post extends React.Component {
           
         
       </div>
+      </>
     )}
 }
 
@@ -470,7 +477,7 @@ class PageTwo extends React.Component {
         daysUsedCounter={this.props.data.user_date_count}
         minutesUsedCounter={this.props.data.user_minute_count}
         inTop10={this.props.data.user_minute_count_is_top10}
-        rank={this.props.user_minute_count_rank}
+        rank={this.props.data.user_minute_count_rank}
         percentile={this.props.data.user_minute_count_percentage}
       />
     } else if (this.state.inPageNo == 3) {
@@ -493,17 +500,17 @@ class PageTwo extends React.Component {
         onTouchEnd={this.handleTouchEnd}
       >
         {html}
-        <img className='arrow' src={upArrow} draggable={false} />
+        <img className='arrow' src={upArrowWhite} draggable={false} />
         <img className='floating2' src={floating2} draggable={false}/>
-        <span className='header'> @HKUPootal</span>
-        <span className='footer'> HKU噗噗2022年度报告</span>
+        <span className='header'>@HKUPootal</span>
+        <span className='footer'>HKU噗噗<br/>2022年度报告 </span>
       </div>
     )
   }
 }
 
 function SubPageSix(props) {
-  if(props.isTop10 || props.userViewPercentile>85) var slogan = "全pootal人的心事都要被你知道啦";
+  if(props.isTop10 || props.userViewPercentile>85) var slogan = "全噗噗人的心事都要被你知道啦";
   else if(props.userViewPercentile>60) var slogan = "看那么多的树洞 真是辛苦你了\n明年再接再厉";
   else var slogan = " 树洞里有超多好玩的东西\n 要记得常来喔";
 
@@ -514,7 +521,7 @@ function SubPageSix(props) {
           你光顾了其中的 <span className="bold">{props.userViewCount} </span> 条 <br/>
         </p>
         <p className="sub45">
-          {props.isTop10? <>在 {totalUserCount} 名噗噗用户中排名第 <span className="bold">{props.userViewRank} </span></>: 
+          {props.isTop10? <>在 <span className="bold">{totalUserCount}</span> 名噗噗用户中排名第 <span className="bold">{props.userViewRank} </span></>: 
           <>击败了 <span className="bold">{props.userViewPercentile}% </span> 的噗噗用户</>}
         </p >
         <p className="sub45" style={{whiteSpace: 'pre-line'}}>{slogan}</p>
@@ -525,7 +532,7 @@ function SubPageSix(props) {
 function SubPageSeven(props) {
   return(
     <div id="mainContent2" className="newly-added">
-    <p style={{paddingTop: '52vh'}} className="sub7">
+    <p style={{paddingTop: '48vh'}} className="sub7">
        你查看过 <span className="bold">{props.hotPostCount} </span> 次热榜 <br/>
        参与了 <span className="bold">{props.voteCount} </span> 次投票 <br/>
        与港大、中大、科大三校的<br/>
@@ -650,7 +657,7 @@ class SubPageEight extends React.Component {
         {card2}
         {card3}
       </div>
-      <p style={{padding:0, marginLeft: '30px', marginTop: '18px'}}>加油 你离百万树洞主只有一步之遥</p>
+      <p style={{padding:0, marginLeft: '30px', marginTop: '18px', marginRight: '30px'}}>百万洞主，非你莫属</p>
       </div>
     )
 
@@ -760,8 +767,8 @@ class PageThree extends React.Component {
         {html}
         <img className='arrow' src={upArrow} draggable={false} />
         <img className='floating3' src={floating3} draggable={false}/>
-        <span className='header'> @HKUPootal</span>
-        <span className='footer'> HKU噗噗2022年度报告</span>
+        <span className='header'>@HKUPootal</span>
+        <span className='footer'>HKU噗噗<br/>2022年度报告</span>
       </div>
     )
   }
@@ -821,7 +828,7 @@ function SubPageEleven(props) {
   return(
     <div id="mainContent3" className="newly-added">
       <p style={{textAlign: 'center',padding: '9vh 25px 1vh 25px', fontSize:'2.4vh', fontWeight:65}}>2022年<br/>
-      你在 HKU ONE 搜索频次最高的{numChar[wordCount-1]}项词条是</p>
+      你在 HKU ONE 搜索频次<br/>最高的{numChar[wordCount-1]}项词条是</p>
 
       <div id='keywords'>
         <span id="word2">{list[1]}</span>
@@ -835,7 +842,7 @@ function SubPageEleven(props) {
         它们对你来说意味着什么 <br/>
         又串起了怎样苦甜参半的回忆呢？
       </p>
-      <p style={{whiteSpace: 'pre-line', padding: '40px 30px 0 30px', fontSize: '1.92vh', textAlign: 'left', fontWeight: '45'}}>
+      <p style={{whiteSpace: 'pre-line', padding: '40px 30px 0 30px', fontSize: '1.6vh', textAlign: 'left'}}>
         {otherSearch}
       </p>
 
@@ -956,8 +963,8 @@ class PageFour extends React.Component {
         {html}
         <img className='arrow' src={upArrow} draggable={false} />
         <img className='floating4' src={floating4} draggable={false}/>
-        <span className='header'> @HKUPootal</span>
-        <span className='footer'> HKU噗噗2022年度报告</span>
+        <span className='header'>@HKUPootal</span>
+        <span className='footer'>HKU噗噗<br/>2022年度报告</span>
       </div>
     )
   }
@@ -974,38 +981,59 @@ class PageFive extends React.Component {
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.download = this.download.bind(this);
+    this.drawPoster = this.drawPoster.bind(this);
+    this.handleHideName = this.handleHideName.bind(this);
   }
 
   componentDidMount() {
+      this.drawPoster(true);
+  }
+
+  drawPoster(withName){
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
 
-    const avatar = new Image();
-    avatar.src = "https://i.boatonland.com/avatar/"+this.props.avatar+".svg"; 
-    avatar.onload = () => { ctx.drawImage(avatar, 80, 160, 120, 120) }
+    const mainPoster = new Image();
+    mainPoster.src = "https://i.boatonland.com/report2022/poster_cover.png"; 
+    mainPoster.onload = () => { 
+      ctx.drawImage(mainPoster, 0, 0, canvas.width, canvas.height); 
+      ctx.font = "22px PuHui";
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillText("@HKUPootal", 40, 60);
+      ctx.fillText("打开HKU噗噗",canvas.width - 180, canvas.height-75);
+      ctx.fillText("查看你的2022年度报告",canvas.width-273, canvas.height-50);
+      ctx.fillStyle = "#000000";
+      if(withName){
+        const avatar = new Image();
+        avatar.src = "https://i.boatonland.com/avatar/"+this.props.avatar+".svg"; 
+        avatar.onload = () => { ctx.drawImage(avatar, 120, 157, 50, 50) };
+        
+        ctx.fillText(this.props.username, 180, 191);
+      }
 
-    // ctx.fillStyle = "#FFFFFF";
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
-    var grd = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-    grd.addColorStop(0, "#b4b4b4");
-    grd.addColorStop(1, "#d6d6d6");
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = 10;
-    ctx.strokeStyle = "#000000"
-    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "100 35px Arial";
+      ctx.fillText('的', 135+this.props.title1.length*55, 420);
+      ctx.font = "900 55px Arial";
+      ctx.fillText(this.props.title1, 120, 420);
+      ctx.fillText(this.props.title2, 120, 500);
 
-    ctx.font = "45px PuHui";
-    ctx.fillStyle = "#000000";
-    ctx.fillText("2022噗噗年度报告", 110, 100);
-    ctx.fillText("的HKUPootal关键词", 105, 370);
-    ctx.font = "70px PuHui";
-    ctx.fillText(this.props.username, 210, 240);
+      ctx.font = "900 35px Arial";
+      ctx.fillStyle = "#3A70A6";
+      ctx.textAlign = "center";
+      ctx.fillText(this.props.dateCount, 147, 735);
+      ctx.fillText(this.props.viewCount, 301, 735);
+      ctx.fillText(this.props.postCount, 449, 735);
 
-    ctx.fillStyle = "#000000";
-    ctx.fillText(this.props.title1, 20+(8-this.props.title1.length)*70/2, 500);
-    ctx.fillText(this.props.title2, 20+(8-this.props.title2.length)*70/2, 600);
+      ctx.textAlign = "left";
+      ctx.font = "lighter 17px Arial";
+      ctx.fillStyle = "#000000";
+      ctx.fillText(this.props.slogan1, 115, 770);
+      ctx.fillText(this.props.slogan2, 257, 770);
+      ctx.fillText(this.props.slogan3, 415, 770);
+      
+    };
+
+
 
 
   }
@@ -1029,16 +1057,14 @@ class PageFive extends React.Component {
     }
   }
 
-  download() {
-    var canvas = document.getElementById("myCanvas");
-    let canvasUrl = canvas.toDataURL("PupuEndOfYearReview/jpeg", 1);
-    console.log(canvasUrl);
-    const createEl = document.createElement('a');
-    createEl.href = canvasUrl;
-    createEl.download = "PupuEndOfYearReview";
-    createEl.click();
-    createEl.remove();
+  handleHideName(e){
+    if(e.target.checked){
+      this.drawPoster(false);
+    }else{
+      this.drawPoster(true);
+    }
   }
+
 
   render() {
     return (
@@ -1048,17 +1074,15 @@ class PageFive extends React.Component {
         onTouchMove={this.handleTouchMove}
         onTouchEnd={this.handleTouchEnd}
       >
-        <div id="mainContent">
+        
+        <div id="mainContent" style={{paddingBottom: 0}}>
           <canvas
             id="myCanvas"
             width="600"
-            height="900"
+            height="1000"
           ></canvas>
-          <button
-            className="btn downloadBtn"
-            onClick={this.download}
-          >保存至相册</button>
         </div>
+        <div id="showName"><input type="checkbox" onClick={this.handleHideName}></input>不显示你的HKU噗噗头像与用户ID</div>
       </div>
     )
   }
@@ -1080,13 +1104,23 @@ class Pages extends React.Component {
   }
 
   getUserData() {
-    const usrToken = 'cxiang'
-    $.getJSON(`https://api.pupu.hkupootal.com/v3/report2022/get.php?user_itsc=${usrToken}`, function (result) {
+    const usrToken = window.location.href.split('?')[1].split("token=")[1]
+    $.getJSON(`https://api.pupu.hkupootal.com/v3/report2022/get.php?token=${usrToken}`, function (result) {
       if (result.code === 200) {
         console.log(result.report_data);
         this.setState({ data: result.report_data, dataLoaded: true  });
+        this.changePage(-100);
+
+        setTimeout(() => {
+          const sticker = document.querySelector(".floating2");
+        sticker.style.top="80px"}, 1000);
+      }else{
+        $('#fetchFailed').css('display', 'block');
+        setTimeout(() => {
+          $('#fetchFailed').css('display', 'none');
+      }, 1500);
       }
-    }.bind(this))
+    }.bind(this));
     // this.setState({ data: testdata, dataLoaded: true });
   }
 
@@ -1114,6 +1148,12 @@ class Pages extends React.Component {
             avatar={this.state.data.user_avatar} 
             title1={this.state.data.user_title_1}
             title2={this.state.data.user_title_2}
+            dateCount={this.state.data.user_date_count}
+            viewCount={this.state.data.user_view_post_id_count}
+            postCount={this.state.data.user_post_count}
+            slogan1={this.state.data.user_poster_1}
+            slogan2={this.state.data.user_poster_2}
+            slogan3={this.state.data.user_poster_3}
           />;
         pageFour = <PageFour changePage={this.changePage} data={this.state.data}/>;
     }
