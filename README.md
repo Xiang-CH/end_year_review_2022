@@ -1,5 +1,7 @@
 important: npm install chart.js react-chartjs-2 jquery weixin-js-sdk
 
+Video Demo: https://connecthkuhk-my.sharepoint.com/:v:/g/personal/cxiang_connect_hku_hk/EZ9fhU7zJmtMsIer8RhQ7ywB6dvS8Rl3LQF9njS_Yuq5qA?e=Wf75Sd
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
