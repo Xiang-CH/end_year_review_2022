@@ -1,6 +1,8 @@
 important: npm install chart.js react-chartjs-2 jquery weixin-js-sdk
 
-Video Demo: https://connecthkuhk-my.sharepoint.com/:v:/g/personal/cxiang_connect_hku_hk/EZ9fhU7zJmtMsIer8RhQ7ywB6dvS8Rl3LQF9njS_Yuq5qA?e=Wf75Sd
+https://github.com/Xiang-CH/end_year_review_2022/assets/63144890/ac7f4f25-0f65-48a6-a2a5-f36fc36c18a2
+
+Full Video Demo: https://connecthkuhk-my.sharepoint.com/:v:/g/personal/cxiang_connect_hku_hk/EZ9fhU7zJmtMsIer8RhQ7ywB6dvS8Rl3LQF9njS_Yuq5qA?e=Wf75Sd
 
 # Getting Started with Create React App
 
